@@ -2,7 +2,7 @@ replicaCount: 2
 
 image:
   repository: omprasad123/frontend
-  tag: latest
+  tag: "latest"
   pullPolicy: IfNotPresent
 
 service:
