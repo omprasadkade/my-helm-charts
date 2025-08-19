@@ -1,0 +1,13 @@
+replicaCount: 2
+
+image:
+  repository: omprasad123/backend
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8000
+  targetPort: 8000
+
+containerPort: 8000
