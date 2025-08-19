@@ -3,9 +3,10 @@ kind: Service
 metadata:
   name: frontend
 spec:
-  type: {{ .Values.service.type }}
+  type: {{ .Values.service.type }}  # NodePort or LoadBalancer
   selector:
     app: frontend
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: {{ .Values.service.targetPort }}
+    - port: {{ .Values.service.port }}       # ClusterIP port
+      targetPort: {{ .Values.service.targetPort }}  # Pod container port
+      nodePort: {{ .Values.service.nodePort | default 0 }} # Optional: let k8s auto-assign
