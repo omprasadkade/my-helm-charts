@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: myapp-applicationset
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - name: backend
+            path: backend    # Helm chart path for backend
+          - name: frontend
+            path: frontend   # Helm chart path for fronten
+  template:
+    metadata:
+      name: '{{name}}'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/omprasadkade/my-helm-charts.git
+        targetRevision: main
+        path: '{{path}}'   # Path dynamically set
+        helm:
+          valueFiles:
+            - values.yaml
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: dev
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+
+
+
+
